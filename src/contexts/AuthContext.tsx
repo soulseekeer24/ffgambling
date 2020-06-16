@@ -1,28 +1,21 @@
 import React, {useEffect, useState} from "react";
-
+import app from "../firebase/auth/firebaseAuth"
 
 export const AuthContext = React.createContext({user: null});
 
 type Props = {}
 
 export const AuthProvider = (props: React.PropsWithChildren<Props>) => {
+
     const [currentUser, setCurrentUser] = useState(null) as any;
     const [pending, setPending] = useState(true);
+
     useEffect(() => {
-
-        const jwtEncoded = localStorage.getItem("jwt-encoded");
-        // const jwtEncoded = "jwt-encoded";
-        if (jwtEncoded) {
-            const user = {username: 'test'};
+        app.auth().onAuthStateChanged(function (user) {
             setCurrentUser(user);
-        } else {
-            setCurrentUser(null);
-        }
-
-        setTimeout(() => {
             setPending(false);
-        }, 1000);
-    }, []);
+        });
+    }, [setCurrentUser, setPending]);
 
     if (pending) {
         return <>Loading...</>
