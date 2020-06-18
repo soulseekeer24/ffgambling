@@ -30,7 +30,7 @@ const CustomNavbar = () => {
                 </Link>
             </Nav>
             <Form inline>
-                <CoinLabel coinAmount={9.999.999}/>
+                <CoinLabel coinAmount={9999999}/>
                 <Button onClick={logOutHandler} variant="outline-primary">Logout</Button>
             </Form>
         </Navbar>
